@@ -1,7 +1,7 @@
 class PuppetGem < FPM::Cookery::Recipe
-  description 'Oxidised gem stack'
+  description 'Oxidized gem stack'
 
-  name 'oxidised'
+  name 'oxidized'
   version '0.0.29'
 
   source "nothing", :with => :noop
@@ -30,7 +30,7 @@ class PuppetGem < FPM::Cookery::Recipe
     # Provide 'safe' binaries in /opt/<package>/bin like Vagrant does
     rm_rf "#{destdir}/../bin"
     destdir('../bin').mkdir
-    destdir('../bin').install workdir('omnibus.bin'), 'oxidised'
+    destdir('../bin').install workdir('omnibus.bin'), 'oxidized'
 
     # Symlink binaries to PATH using update-alternatives
     with_trueprefix do

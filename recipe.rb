@@ -2,9 +2,9 @@ class PuppetOmnibus < FPM::Cookery::Recipe
   homepage 'https://github.com/bobtfish/puppet-omnibus'
 
   section 'Utilities'
-  name 'oxidised-omnibus'
+  name 'oxidized-omnibus'
   version '3.0.2'
-  description 'Oxidised Omnibus package'
+  description 'Oxidized Omnibus package'
   revision ENV['BUILD_NUMBER']
   uname = `uname -a`
   if uname =~ /Linux/
