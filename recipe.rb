@@ -29,7 +29,7 @@ class PuppetOmnibus < FPM::Cookery::Recipe
   omnibus_recipes 'libyaml',
                   'libyaml',
                   'ruby',
-                  'oxidised'
+                  'oxidized'
 
   def build
     # Nothing
