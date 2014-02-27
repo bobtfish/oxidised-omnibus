@@ -1,8 +1,8 @@
 class PuppetGem < FPM::Cookery::Recipe
-  description 'Puppet gem stack'
+  description 'Oxidised gem stack'
 
-  name 'puppet'
-  version '3.0.2'
+  name 'oxidised'
+  version '0.0.29'
 
   source "nothing", :with => :noop
 
@@ -18,34 +18,9 @@ class PuppetGem < FPM::Cookery::Recipe
 
   def build
     # Install gems using the gem command from destdir
-    gem_install 'facter',      '1.7.3'
-    gem_install 'json_pure',   '1.8.0'
-    gem_install 'hiera',       '1.3.0'
-    gem_install 'deep_merge',  '1.0.0'
-    gem_install 'rgen',        '0.6.5'
-    ENV['PKG_CONFIG_PATH'] = '/opt/puppet-omnibus/embedded/lib/pkgconfig'
-    gem_install 'ruby-augeas -- --with-opt-dir=/opt/puppet-omnibus/embedded', '0.4.1'
-    self.class.platforms [:ubuntu, :debian, :fedora, :redhat, :centos] do
-      gem_install 'ruby-shadow', '2.2.0'
-    end
-    self.class.platforms [:darwin] do
-      cleanenv_safesystem "git clone -b osx git://github.com/apalmblad/ruby-shadow.git"
-      cleanenv_safesystem "#{destdir}/bin/gem build #{workdir}/ruby-shadow/*.gemspec"
-      cleanenv_safesystem "#{destdir}/bin/gem install --no-ri --no-rdoc #{workdir}/ruby-shadow/*.gem"
-    end
-    gem_install 'gpgme',       '2.0.2'
-    gem_install 'highline',    '1.6.20' # Ruby
-    gem_install 'trollop',     '2.0' # ??? FIXME
-    gem_install 'hiera-eyaml', '2.0.0' # MIT
-    gem_install 'rack',        '1.5.2'
-    gem_install 'unicorn',     '4.8.1'
     gem_install name,          version
     # Download init scripts and conf
     build_files
-
-    # Nasty hack to make puppet be able to use facter 1.7.3
-    cleanenv_safesystem "rm -r #{destdir}/lib/ruby/gems/1.9.1/gems/facter-1.6.18 #{destdir}/lib/ruby/gems/1.9.1/cache/facter-1.6.18.gem"
-    cleanenv_safesystem "sed -i -e's/1.6.11/1.7.3/' #{destdir}/lib/ruby/gems/1.9.1/specifications/puppet-3.0.2.gemspec"
   end
 
   def install
@@ -55,19 +30,7 @@ class PuppetGem < FPM::Cookery::Recipe
     # Provide 'safe' binaries in /opt/<package>/bin like Vagrant does
     rm_rf "#{destdir}/../bin"
     destdir('../bin').mkdir
-    destdir('../bin').install workdir('omnibus.bin'), 'puppet'
-    destdir('../bin').install workdir('omnibus.bin'), 'facter'
-    destdir('../bin').install workdir('omnibus.bin'), 'hiera'
-    destdir('../bin').install builddir('../unicorn'), 'unicorn'
-
-    destdir('../var').mkdir
-    destdir('../var/lib').mkdir
-    destdir('../var/lib/puppetmaster').mkdir
-    destdir('../var/lib/puppetmaster/rack').mkdir
-    destdir('../var/lib/puppetmaster/rack').install builddir('../config.ru')
-
-    destdir('../etc').mkdir
-    destdir('../etc').install builddir('../unicorn.conf')
+    destdir('../bin').install workdir('omnibus.bin'), 'oxidised'
 
     # Symlink binaries to PATH using update-alternatives
     with_trueprefix do

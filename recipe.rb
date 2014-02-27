@@ -2,9 +2,9 @@ class PuppetOmnibus < FPM::Cookery::Recipe
   homepage 'https://github.com/bobtfish/puppet-omnibus'
 
   section 'Utilities'
-  name 'puppet-omnibus'
+  name 'oxidised-omnibus'
   version '3.0.2'
-  description 'Puppet Omnibus package'
+  description 'Oxidised Omnibus package'
   revision ENV['BUILD_NUMBER']
   uname = `uname -a`
   if uname =~ /Linux/
@@ -26,25 +26,10 @@ class PuppetOmnibus < FPM::Cookery::Recipe
 
   omnibus_package true
   omnibus_dir     "/opt/#{name}"
-  omnibus_recipes 'libaugeas',
+  omnibus_recipes 'libyaml',
                   'libyaml',
                   'ruby',
-                  'puppet',
-                  'aws',
-                  'puppettools',
-                  'nginx'
-#  replaces 'puppet', 'puppet-common', 'hiera', 'yelp-hiera', 'facter', 'puppetmaster', 'puppetmaster-passenger', 'puppetmaster-common'
-#  conflicts 'puppet', 'puppet-common', 'hiera', 'yelp-hiera', 'facter', 'puppetmaster', 'puppetmaster-passenger', 'puppetmaster-common'
-#  provides 'puppet', 'puppet-common', 'hiera', 'yelp-hiera', 'facter', 'puppetmaster', 'puppetmaster-passenger', 'puppetmaster-common'
-
-  # Set up paths to initscript and config files per platform
-  platforms [:ubuntu, :debian] do
-#    config_files '/etc/default/puppet'
-  end
-  platforms [:fedora, :redhat, :centos] do
-#    config_files '/etc/sysconfig/puppet'
-  end
-#  omnibus_additional_paths config_files
+                  'oxidised'
 
   def build
     # Nothing
