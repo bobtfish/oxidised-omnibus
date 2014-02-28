@@ -8,7 +8,7 @@ class PuppetGem < FPM::Cookery::Recipe
 
   platforms [:ubuntu, :debian] do
     build_depends 'pkg-config', 'libsqlite3-dev'
-    depends 'pkg-config', 'libsqlite3'
+    depends 'pkg-config', 'libsqlite3-0'
   end
 
   platforms [:fedora, :redhat, :centos] do
