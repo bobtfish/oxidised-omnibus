@@ -2,7 +2,7 @@ class PuppetGem < FPM::Cookery::Recipe
   description 'Oxidized gem stack'
 
   name 'oxidized'
-  version '0.0.43'
+  version '0.0.45'
 
   source "nothing", :with => :noop
 
